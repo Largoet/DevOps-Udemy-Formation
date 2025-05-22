@@ -55,3 +55,54 @@ Application de ce certificat au nom de domaine acheté chez OVHcloud
 🧠 Remarque personnelle
 
 J'ai fait pas mal de manipulations sur AWS, et certaines sont encore un peu floues. Il faudra que je revoie calmement les étapes IAM, la gestion des certificats et la liaison avec un domaine externe  pour clarifier tout ça.
+
+📅 20-22 Mai 2025
+
+🧰 Virtualisation – Premiers pas avec les machines virtuelles
+
+✅ Étude des hyperviseurs
+Compréhension des différences entre :
+
+    Hyperviseur de type 1 (bare-metal) : s’exécute directement sur le matériel.
+
+    Hyperviseur de type 2 (hosted) : s’exécute sur un système d’exploitation existant (ex. : VirtualBox).
+
+✅ Installation et prise en main d’Oracle VirtualBox
+
+    Installation de VirtualBox via Chocolatey.
+
+    Lancement de l’interface, création de deux VMs :
+
+        CentOS
+
+        Ubuntu
+
+    Paramétrages :
+
+        Définition du nombre de cœurs CPU et de la mémoire vive.
+
+        Définition du disque dur virtuel.
+
+💿 Installation de CentOS
+
+    Téléchargement de l’image ISO officielle.
+
+    Lancement de l’installation manuelle :
+
+        Définition du mot de passe root.
+
+        Sélection du disque pour l’installation.
+
+        Configuration de base (langue, fuseau horaire, etc.).
+
+🌐 Configuration réseau – Mode Bridge
+
+    Découverte du mode "Bridged Adapter" dans l’onglet Network > Adapter 2.
+
+    Sélection de l’adaptateur réseau correspondant à ma connexion.
+
+    Objectif : donner à la VM une adresse IP locale propre, visible sur le réseau.
+
+🔎 Vérification IP
+
+    Utilisation de la commande ip a dans la VM (équivalent de ipconfig sous Windows) pour confirmer la connectivité réseau.
