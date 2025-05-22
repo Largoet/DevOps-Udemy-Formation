@@ -146,3 +146,31 @@ Interface enp0s8 (interface configurée en mode Bridged Adapter)
         Globale : 2001:861:3a03:b0a0::27ff:fe79:c968/64
 
         Link-local : fe80::27ff:fe79:c968/64
+
+
+🔐 Connexion SSH – Validation de l’environnement CentOS
+
+✅ Connexion réussie à la VM CentOS via Git Bash :
+
+ssh centosuser@192.168.1.185
+
+💡 Authentification :
+
+    Connexion établie en saisissant le mot de passe de l’utilisateur centosuser.
+
+🔎 Vérification du nom d’hôte :
+
+hostname
+
+    Résultat : centosvm
+
+
+🎉 Conclusion :
+
+    La connexion distante fonctionne parfaitement.
+
+    L’utilisateur centosuser est actif et autorisé à se connecter via SSH.
+
+    La machine répond bien aux commandes de base depuis un terminal distant.
+
+➡️ Étape suivante : Réaliser la même procédure avec la VM Ubuntu.
