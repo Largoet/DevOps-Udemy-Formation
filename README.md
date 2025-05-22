@@ -106,3 +106,43 @@ Compréhension des différences entre :
 🔎 Vérification IP
 
     Utilisation de la commande ip a dans la VM (équivalent de ipconfig sous Windows) pour confirmer la connectivité réseau.
+📅 20 Mai 2025
+
+🔍 Analyse réseau – VM CentOS
+
+✅ Commande exécutée :
+
+ip addr show
+
+📄 Résultat analysé :
+Interface enp0s3 (interface NAT par défaut VirtualBox)
+
+    Adresse MAC : 08:00:27:38:1c:cb
+
+    Adresse IPv4 : 10.0.2.15/24
+
+        Fournie par VirtualBox pour simuler un accès Internet.
+
+        Plage : 10.0.2.0/24 (passerelle probable : 10.0.2.1)
+
+    Adresses IPv6 :
+
+        Globale dynamique : 2400:...:38:1ccb/64
+
+        Link-local : fe80::...:38:1ccb/64
+
+Interface enp0s8 (interface configurée en mode Bridged Adapter)
+
+    Adresse MAC : 08:00:27:79:c9:68
+
+    Adresse IPv4 : 192.168.1.185/24
+
+        IP obtenue directement depuis ma box Internet (réseau local).
+
+        Confirme que le mode bridge est fonctionnel.
+
+    Adresses IPv6 :
+
+        Globale : 2001:861:3a03:b0a0::27ff:fe79:c968/64
+
+        Link-local : fe80::27ff:fe79:c968/64
