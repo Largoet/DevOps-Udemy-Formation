@@ -1,0 +1,66 @@
+# 🐧 Fiche de révision Linux – Commandes essentielles  
+
+📂 Navigation & gestion des fichiers
+pwd              # afficher le chemin courant
+ls -l            # lister les fichiers (détails)
+cd dossier/      # changer de dossier
+mkdir nouveau/   # créer un dossier
+touch fichier    # créer un fichier vide
+cp src dest      # copier un fichier
+mv src dest      # déplacer/renommer un fichier
+rm fichier       # supprimer un fichier
+rm -r dossier/   # supprimer un dossier
+
+
+📖 Lecture de fichiers
+cat fichier      # afficher le contenu
+less fichier     # lire page par page
+head -n 10 f     # voir les 10 premières lignes
+tail -n 20 f     # voir les 20 dernières lignes
+tail -f log.txt  # suivre un fichier en temps réel
+
+
+🔍 Filtres & recherche
+grep "mot" fichier        # chercher un mot
+grep -i "mot" fichier     # insensible à la casse
+grep -R "mot" dossier/    # chercher récursivement
+cut -d: -f1 /etc/passwd   # extraire la 1ère colonne
+sort fichier              # trier les lignes
+uniq fichier              # supprimer doublons (après sort)
+wc -l fichier             # compter lignes
+
+
+⚡ awk
+awk -F: '{print $1}' /etc/passwd             # afficher la 1ère colonne
+awk -F: '{print $1, $7}' /etc/passwd         # afficher colonnes 1 et 7
+awk -F: '$7=="/bin/bash" {print $1}' /etc/passwd  # filtrer selon condition
+
+
+👤 Utilisateurs & permissions
+whoami           # utilisateur courant
+id               # infos UID/GID
+adduser nom      # ajouter un utilisateur
+passwd nom       # changer mot de passe
+chmod 644 f      # changer droits (rw-r--r--)
+chown user:grp f # changer propriétaire
+
+⚙️ Processus & services
+ps aux           # lister processus
+top              # afficher processus en temps réel
+kill PID         # tuer un processus
+systemctl status nginx    # état d’un service
+systemctl start nginx     # démarrer un service
+systemctl stop nginx      # arrêter un service
+
+
+📝 Éditeur Vim
+i                # passer en mode insertion
+ESC              # revenir en mode normal
+:wq              # enregistrer et quitter
+:q!              # quitter sans enregistrer
+yy               # copier une ligne
+4yy              # copier 4 lignes
+p                # coller
+dd               # supprimer une ligne
+u                # annuler
+:set number      # afficher les numéros de ligne
