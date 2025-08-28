@@ -1,6 +1,7 @@
-# 🐧 Fiche de révision Linux – Commandes essentielles  
+# 🐧 Fiche de révision Linux – Commandes essentielles
 
-📂 Navigation & gestion des fichiers
+## 📂 Navigation & gestion des fichiers
+```bash
 pwd              # afficher le chemin courant
 ls -l            # lister les fichiers (détails)
 cd dossier/      # changer de dossier
@@ -10,17 +11,23 @@ cp src dest      # copier un fichier
 mv src dest      # déplacer/renommer un fichier
 rm fichier       # supprimer un fichier
 rm -r dossier/   # supprimer un dossier
+```
 
+---
 
-📖 Lecture de fichiers
+## 📖 Lecture de fichiers
+```bash
 cat fichier      # afficher le contenu
 less fichier     # lire page par page
 head -n 10 f     # voir les 10 premières lignes
 tail -n 20 f     # voir les 20 dernières lignes
 tail -f log.txt  # suivre un fichier en temps réel
+```
 
+---
 
-🔍 Filtres & recherche
+## 🔍 Filtres & recherche
+```bash
 grep "mot" fichier        # chercher un mot
 grep -i "mot" fichier     # insensible à la casse
 grep -R "mot" dossier/    # chercher récursivement
@@ -28,32 +35,45 @@ cut -d: -f1 /etc/passwd   # extraire la 1ère colonne
 sort fichier              # trier les lignes
 uniq fichier              # supprimer doublons (après sort)
 wc -l fichier             # compter lignes
+```
 
+---
 
-⚡ awk
+## ⚡ awk (plus puissant que cut)
+```bash
 awk -F: '{print $1}' /etc/passwd             # afficher la 1ère colonne
 awk -F: '{print $1, $7}' /etc/passwd         # afficher colonnes 1 et 7
 awk -F: '$7=="/bin/bash" {print $1}' /etc/passwd  # filtrer selon condition
+```
 
+---
 
-👤 Utilisateurs & permissions
+## 👤 Utilisateurs & permissions
+```bash
 whoami           # utilisateur courant
 id               # infos UID/GID
 adduser nom      # ajouter un utilisateur
 passwd nom       # changer mot de passe
 chmod 644 f      # changer droits (rw-r--r--)
 chown user:grp f # changer propriétaire
+```
 
-⚙️ Processus & services
+---
+
+## ⚙️ Processus & services
+```bash
 ps aux           # lister processus
 top              # afficher processus en temps réel
 kill PID         # tuer un processus
 systemctl status nginx    # état d’un service
 systemctl start nginx     # démarrer un service
 systemctl stop nginx      # arrêter un service
+```
 
+---
 
-📝 Éditeur Vim
+## 📝 Éditeur Vim (ultra basique)
+```vim
 i                # passer en mode insertion
 ESC              # revenir en mode normal
 :wq              # enregistrer et quitter
@@ -64,3 +84,40 @@ p                # coller
 dd               # supprimer une ligne
 u                # annuler
 :set number      # afficher les numéros de ligne
+```
+
+### 🔍 Recherche & Remplacement dans Vim
+```vim
+/foo             # rechercher "foo" dans le fichier
+:%s/foo/bar/g    # remplacer "foo" par "bar" partout
+:%s/foo/bar/gc   # idem avec confirmation
+:%s/covid19//g   # supprimer toutes les occurrences de "covid19"
+```
+
+---
+
+## 📌 Formats avec `printf` (Bash, awk…)
+- `%s` → string (chaîne de caractères)
+- `%d` → entier (decimal)
+- `%f` → nombre flottant (décimal)
+- `\n` → saut de ligne
+- `\t` → tabulation
+
+### Exemples :
+```bash
+printf "Bonjour %s\n" "Thibaut"
+# Bonjour Thibaut
+
+printf "%s aime le %s\n" "Thibaut" "DevOps"
+# Thibaut aime le DevOps
+
+printf "Valeur entière : %d\n" 42
+# Valeur entière : 42
+
+printf "Pi ≈ %.2f\n" 3.14159
+# Pi ≈ 3.14
+```
+
+En `awk` :
+```bash
+awk -F: '{printf "Utilisateur: %s - Shell: %s\n", $1, $7}' /etc/passwd
