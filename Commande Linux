@@ -1,123 +1,204 @@
-# 🐧 Fiche de révision Linux – Commandes essentielles
+# 📘 Logbook Linux — Guide unifié CentOS/RHEL & Ubuntu/Debian
 
-## 📂 Navigation & gestion des fichiers
-```bash
-pwd              # afficher le chemin courant
-ls -l            # lister les fichiers (détails)
-cd dossier/      # changer de dossier
-mkdir nouveau/   # créer un dossier
-touch fichier    # créer un fichier vide
-cp src dest      # copier un fichier
-mv src dest      # déplacer/renommer un fichier
-rm fichier       # supprimer un fichier
-rm -r dossier/   # supprimer un dossier
-```
+## 🧠 Introduction
+
+Ce logbook regroupe les commandes Linux essentielles rencontrées lors des exercices (fichiers 1 → 13). Il couvre à la fois **CentOS/RHEL** et **Ubuntu/Debian**, avec les différences importantes. Il est structuré par thématique pour servir de référence rapide.
 
 ---
 
-## 📖 Lecture de fichiers
-```bash
-cat fichier      # afficher le contenu
-less fichier     # lire page par page
-head -n 10 f     # voir les 10 premières lignes
-tail -n 20 f     # voir les 20 dernières lignes
-tail -f log.txt  # suivre un fichier en temps réel
-```
+## 🔹 Navigation & gestion des fichiers
+
+* `pwd` → afficher le chemin courant.
+* `ls` → lister les fichiers.
+* `ls -l` → affichage détaillé.
+* `ls -a` → inclut les fichiers cachés.
+* `cd <répertoire>` → changer de dossier.
+* `touch fichier.txt` → créer un fichier vide.
+* `mkdir dossier` → créer un répertoire.
+* `mkdir -p chemin/vers/dossier` → créer un arbre complet.
+* `rm fichier` / `rm -r dossier` → supprimer.
+* `cp source destination` → copier.
+* `cp -r dossier1 dossier2` → copie récursive.
+* `mv source destination` → déplacer/renommer.
+* `cat fichier` → afficher le contenu.
+* `head -n 10 fichier` / `tail -n 10 fichier` → début/fin d’un fichier.
+* `tail -f fichier` → suivre un fichier en temps réel (ex: logs).
+* `wc -l fichier` → compter lignes.
+* `find /etc -name host*` → recherche de fichiers.
+* `locate motclef` (nécessite `mlocate` + `updatedb`).
 
 ---
 
-## 🔍 Filtres & recherche
-```bash
-grep "mot" fichier        # chercher un mot
-grep -i "mot" fichier     # insensible à la casse
-grep -R "mot" dossier/    # chercher récursivement
-cut -d: -f1 /etc/passwd   # extraire la 1ère colonne
-sort fichier              # trier les lignes
-uniq fichier              # supprimer doublons (après sort)
-wc -l fichier             # compter lignes
-```
+## 🔹 Informations système
+
+* `whoami` → utilisateur courant.
+* `id user` → infos UID, GID, groupes.
+* `uptime` → durée depuis le dernier boot.
+* `free -m` → mémoire disponible.
+* `df -h` → espace disque.
+* `uname -a` / `cat /etc/os-release` → infos OS.
+* `ps aux` / `ps -ef` → processus en cours.
+* `top` / `htop` → suivi dynamique des processus.
 
 ---
 
-## ⚡ awk (plus puissant que cut)
-```bash
-awk -F: '{print $1}' /etc/passwd             # afficher la 1ère colonne
-awk -F: '{print $1, $7}' /etc/passwd         # afficher colonnes 1 et 7
-awk -F: '$7=="/bin/bash" {print $1}' /etc/passwd  # filtrer selon condition
-```
+## 🔹 Utilisateurs & groupes
+
+### CentOS/RHEL
+
+* `useradd nom` → créer un utilisateur.
+* `passwd nom` → définir mot de passe.
+* `usermod -aG groupe user` → ajouter au groupe.
+* `groupadd groupe` / `groupdel groupe` → gestion des groupes.
+* `userdel user` / `userdel -r user` → supprimer un utilisateur (+ home).
+
+### Ubuntu/Debian
+
+* `adduser nom` → recommandé (crée home + shell + mot de passe).
+* `deluser nom` / `deluser --remove-home nom` → suppression.
+* Sinon `useradd -m -s /bin/bash nom` fonctionne mais plus bas niveau.
 
 ---
 
-## 👤 Utilisateurs & permissions
-```bash
-whoami           # utilisateur courant
-id               # infos UID/GID
-adduser nom      # ajouter un utilisateur
-passwd nom       # changer mot de passe
-chmod 644 f      # changer droits (rw-r--r--)
-chown user:grp f # changer propriétaire
-```
+## 🔹 Permissions & droits
+
+* `ls -ld fichier` → voir les droits.
+* `chmod 754 fichier` → changer droits numériques.
+* `chmod +x script.sh` → ajouter exécution.
+* `chown user:group fichier` → changer propriétaire.
+* Exemple :
+
+  * `chmod g+w /opt/devopsdir` → ajouter écriture au groupe.
+  * `chmod o-r dossier` → retirer lecture aux autres.
 
 ---
 
-## ⚙️ Processus & services
-```bash
-ps aux           # lister processus
-top              # afficher processus en temps réel
-kill PID         # tuer un processus
-systemctl status nginx    # état d’un service
-systemctl start nginx     # démarrer un service
-systemctl stop nginx      # arrêter un service
-```
+## 🔹 Super utilisateur (sudo)
+
+* `sudo commande` → exécuter en admin.
+* `visudo` → éditer sudoers.
+* Alternative : créer un fichier dans `/etc/sudoers.d/`.
+* Variables utiles :
+
+  ```bash
+  export EDITOR=vim
+  export VISUAL=vim
+  ```
+
+  (à mettre dans `~/.bashrc` pour être permanent).
 
 ---
 
-## 📝 Éditeur Vim (ultra basique)
-```vim
-i                # passer en mode insertion
-ESC              # revenir en mode normal
-:wq              # enregistrer et quitter
-:q!              # quitter sans enregistrer
-yy               # copier une ligne
-4yy              # copier 4 lignes
-p                # coller
-dd               # supprimer une ligne
-u                # annuler
-:set number      # afficher les numéros de ligne
-```
+## 🔹 Gestion des paquets
 
-### 🔍 Recherche & Remplacement dans Vim
-```vim
-/foo             # rechercher "foo" dans le fichier
-:%s/foo/bar/g    # remplacer "foo" par "bar" partout
-:%s/foo/bar/gc   # idem avec confirmation
-:%s/covid19//g   # supprimer toutes les occurrences de "covid19"
-```
+### CentOS/RHEL
+
+* `dnf install paquet` / `yum install paquet`
+* `dnf remove paquet` / `yum remove paquet`
+* `dnf update -y` → mise à jour paquets installés.
+* `dnf upgrade` → maj plus complète.
+* `dnf search motclef`
+* `dnf list installed`
+* `dnf history` / `dnf history undo <id>` / `redo <id>`
+* RPM :
+
+  * `rpm -ivh paquet.rpm` → installer.
+  * `rpm -qa` → lister.
+  * `rpm -e paquet` → supprimer.
+
+### Ubuntu/Debian
+
+* `apt update` → met à jour l’index.
+* `apt upgrade` → installe nouvelles versions.
+* `apt install paquet`
+* `apt remove paquet` → supprime mais garde la conf.
+* `apt purge paquet` → supprime tout (binaire + conf).
+* `apt autoremove` → nettoie dépendances inutiles.
+* `apt search motclef`
+* `dpkg -i paquet.deb` → installer.
+* `dpkg -l` → liste des paquets.
+* `dpkg -r paquet` → supprimer.
 
 ---
 
-## 📌 Formats avec `printf` (Bash, awk…)
-- `%s` → string (chaîne de caractères)
-- `%d` → entier (decimal)
-- `%f` → nombre flottant (décimal)
-- `\n` → saut de ligne
-- `\t` → tabulation
+## 🔹 Services (systemd)
 
-### Exemples :
-```bash
-printf "Bonjour %s\n" "Thibaut"
-# Bonjour Thibaut
+* `systemctl start service` / `systemctl stop service`
+* `systemctl restart service` / `systemctl reload service`
+* `systemctl status service`
+* `systemctl enable service` / `disable`
+* `systemctl is-active service`
+* `systemctl is-enabled service`
+* `journalctl -u service [-f]`
 
-printf "%s aime le %s\n" "Thibaut" "DevOps"
-# Thibaut aime le DevOps
+**Différences de noms :**
 
-printf "Valeur entière : %d\n" 42
-# Valeur entière : 42
+* Apache : `httpd` (CentOS) vs `apache2` (Ubuntu).
+* SSH : `sshd` (CentOS) vs `ssh` (Ubuntu).
 
-printf "Pi ≈ %.2f\n" 3.14159
-# Pi ≈ 3.14
-```
+---
 
-En `awk` :
-```bash
-awk -F: '{printf "Utilisateur: %s - Shell: %s\n", $1, $7}' /etc/passwd
+## 🔹 Processus
+
+* `ps aux | grep nom`
+* `kill <PID>` → TERM (propre).
+* `kill -9 <PID>` → KILL (forcé).
+* `pkill nom` → par nom.
+* `ps -ef | grep httpd | awk '{print $2}' | xargs kill -9` → tuer tous les httpd.
+
+---
+
+## 🔹 Archivage & compression
+
+### tar
+
+* `tar -cvf archive.tar fichiers/`
+* `tar -xvf archive.tar`
+* `tar -tzvf archive.tar.gz` → lister contenu gzip.
+* `tar -czvf archive.tar.gz dossier/` → créer compressée gzip.
+* `tar -xjvf archive.tar.bz2` → bzip2.
+* `tar -xJvf archive.tar.xz` → xz.
+
+### zip/unzip
+
+* `zip archive.zip fichier1 fichier2`
+* `zip -r archive.zip dossier/`
+* `unzip archive.zip`
+* `unzip -l archive.zip` → lister contenu.
+
+---
+
+## 🔹 Réseau
+
+* `ip addr show` → interfaces.
+* `ping adresse`
+* `traceroute adresse`
+* `ssh user@ip`
+* `curl URL` / `wget URL`
+
+---
+
+## 🔹 Logs & monitoring
+
+* CentOS : `/var/log/messages`, `/var/log/secure`.
+* Ubuntu : `/var/log/syslog`, `/var/log/auth.log`.
+* `tail -f /var/log/messages | grep vagrant`
+* `last` → connexions récentes.
+* `who` → utilisateurs connectés.
+* `lsof -u user` → fichiers ouverts par un user.
+
+---
+
+## 🔹 Différences clés CentOS vs Ubuntu
+
+* **Famille** : Red Hat (CentOS/RHEL) vs Debian (Ubuntu).
+* **Gestion paquets** : `dnf/yum` vs `apt/dpkg`.
+* **Apache** : `httpd` vs `apache2`.
+* **SSH** : `sshd` vs `ssh`.
+* **Logs système** : `/var/log/messages` vs `/var/log/syslog`.
+* **Users** : `useradd` vs `adduser`.
+* **Éditeur par défaut** : souvent `vim` (CentOS) vs `nano` (Ubuntu).
+
+---
+
+👉 Ce document est une base consolidée couvrant les exercices (1 à 13) et les deux familles de distributions. Il peut être enrichi avec d’autres thèmes (réseau avancé, sécurité, automatisation).
