@@ -61,4 +61,23 @@ DNS : traduit un nom en adresse IP (ex. google.com → 142.250.74.14).
 
 Sans DNS → il faudrait retenir toutes les IP des serveurs.
 
-👉 Résumé visuel :
+🌐 Fiche mémoire – Réseau (IP)
+🔑 À retenir absolument
+
+IP = identifiant unique d’un appareil sur un réseau (comme une adresse postale).
+
+Privées (non routables Internet) → 3 plages à connaître :
+
+10.0.0.0/8 (10.x.x.x)
+
+172.16.0.0/12 (172.16–31.x.x)
+
+192.168.0.0/16 (192.168.x.x)
+
+Publiques → attribuées par FAI, visibles sur Internet.
+
+NAT → traduit plusieurs IP privées en une seule IP publique.
+
+IPv4 (32 bits, limité) vs IPv6 (128 bits, quasi illimité).
+
+DNS → traduit un nom (google.com) en IP.
